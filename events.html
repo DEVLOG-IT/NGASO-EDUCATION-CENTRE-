@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>School Events | Ngaso Education Centre</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .topbar {
+            height: 68px;
+            background: #ffffff;
+            border-bottom: 1px solid #e7ebf2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            background: #174ea6;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .brand-text h2 {
+            font-size: 16px;
+            color: #17315f;
+            margin-bottom: 2px;
+        }
+
+        .brand-text span {
+            font-size: 11px;
+            color: #7a8496;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-btn {
+            border: none;
+            background: #f1f5fb;
+            color: #29436d;
+            padding: 10px 15px;
+            border-radius: 9px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-btn:hover {
+            background: #e7eef9;
+        }
+
+        .logout-btn {
+            background: #fff1f1;
+            color: #c43b3b;
+        }
+
+        .logout-btn:hover {
+            background: #ffe4e4;
+        }
+
+        .page {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 35px 25px 60px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            color: #17315f;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #737d8f;
+            font-size: 14px;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #fff8e6;
+            color: #9b6a00;
+            border: 1px solid #f0d99a;
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .admin-panel {
+            background: #ffffff;
+            border: 1px solid #e6eaf1;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(23, 49, 95, 0.04);
+            display: none;
+        }
+
+        .admin-panel.show {
+            display: block;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #17315f;
+            font-size: 19px;
+            margin-bottom: 20px;
+        }
+
+        .section-title i {
+            color: #c99a2e;
+        }
+
+        .event-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 17px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #43506a;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #dfe4ec;
+            background: #fbfcfe;
+            border-radius: 9px;
+            padding: 12px 13px;
+            outline: none;
+            color: #24314a;
+            transition: 0.2s;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #4c7fd6;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(76, 127, 214, 0.09);
+        }
+
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 17px;
+            font-weight: 700;
+        }
+
+        .primary-btn {
+            background: #174ea6;
+            color: #ffffff;
+        }
+
+        .primary-btn:hover {
+            background: #123e86;
+        }
+
+        .secondary-btn {
+            background: #eef2f7;
+            color: #42516b;
+        }
+
+        .secondary-btn:hover {
+            background: #e2e7ef;
+        }
+
+        .toolbar {
+            background: #ffffff;
+            border: 1px solid #e6eaf1;
+            border-radius: 15px;
+            padding: 17px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(23, 49, 95, 0.04);
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9aa3b3;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: 1px solid #dfe4ec;
+            border-radius: 9px;
+            padding: 11px 12px 11px 40px;
+            outline: none;
+            background: #fbfcfe;
+        }
+
+        .search-box input:focus {
+            border-color: #4c7fd6;
+            background: #ffffff;
+        }
+
+        .filter-select {
+            border: 1px solid #dfe4ec;
+            border-radius: 9px;
+            padding: 11px 13px;
+            background: #fbfcfe;
+            color: #42516b;
+            outline: none;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .event-card {
+            background: #ffffff;
+            border: 1px solid #e5e9f0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(23, 49, 95, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(23, 49, 95, 0.08);
+        }
+
+        .event-top {
+            background: #17315f;
+            color: #ffffff;
+            padding: 18px;
+            position: relative;
+        }
+
+        .event-date {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #dbe7fa;
+            margin-bottom: 11px;
+        }
+
+        .event-date i {
+            color: #e3b84c;
+        }
+
+        .event-top h3 {
+            font-size: 18px;
+            line-height: 1.35;
+            padding-right: 8px;
+        }
+
+        .event-body {
+            padding: 18px;
+        }
+
+        .event-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: #59657a;
+            font-size: 13px;
+        }
+
+        .event-info i {
+            width: 17px;
+            color: #c99a2e;
+            margin-top: 2px;
+        }
+
+        .event-description {
+            color: #707b8d;
+            font-size: 13px;
+            line-height: 1.7;
+            margin-top: 13px;
+        }
+
+        .audience-badge {
+            display: inline-block;
+            background: #edf4ff;
+            color: #245ba9;
+            border-radius: 20px;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .event-actions {
+            border-top: 1px solid #edf0f4;
+            margin-top: 17px;
+            padding-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            border-radius: 7px;
+            padding: 8px 11px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .edit-btn {
+            background: #edf4ff;
+            color: #245ba9;
+        }
+
+        .delete-btn {
+            background: #fff0f0;
+            color: #c33e3e;
+        }
+
+        .empty-state {
+            background: #ffffff;
+            border: 1px dashed #d7dde7;
+            border-radius: 15px;
+            padding: 55px 25px;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 40px;
+            color: #cbd2dd;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            color: #48556b;
+            margin-bottom: 7px;
+        }
+
+        .empty-state p {
+            color: #8a93a3;
+            font-size: 13px;
+        }
+
+        .notification {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: #17315f;
+            color: #ffffff;
+            padding: 13px 18px;
+            border-radius: 9px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.16);
+            font-size: 13px;
+            z-index: 3000;
+            animation: slideIn 0.25s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(15px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                padding: 0 17px;
+            }
+
+            .brand-text {
+                display: none;
+            }
+
+            .top-btn span {
+                display: none;
+            }
+
+            .top-btn {
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                justify-content: center;
+            }
+
+            .page {
+                padding: 25px 15px 45px;
+            }
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .event-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .form-actions {
+                grid-column: auto;
+            }
+
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <a href="portal.html" class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-school"></i>
+            </div>
+
+            <div class="brand-text">
+                <h2>Ngaso Education Centre</h2>
+                <span>School Management Portal</span>
+            </div>
+        </a>
+
+        <div class="top-actions">
+
+            <a href="portal.html" class="top-btn">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <button class="top-btn logout-btn" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>School Events</h1>
+                <p>Stay informed about activities, celebrations and important school programmes.</p>
+            </div>
+
+            <div class="role-badge">
+                <i class="fa-solid fa-user"></i>
+                <span id="roleBadge">Loading...</span>
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN EVENT MANAGEMENT -->
+
+        <section class="admin-panel" id="adminPanel">
+
+            <h2 class="section-title">
+                <i class="fa-solid fa-calendar-plus"></i>
+                <span id="formHeading">Add New Event</span>
+            </h2>
+
+            <form id="eventForm" class="event-form">
+
+                <input type="hidden" id="eventId">
+
+                <div class="form-group">
+                    <label for="eventTitle">Event Title</label>
+                    <input
+                        type="text"
+                        id="eventTitle"
+                        placeholder="Example: Annual Inter-House Sports"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="eventDate">Event Date</label>
+                    <input
+                        type="date"
+                        id="eventDate"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="eventTime">Event Time</label>
+                    <input
+                        type="time"
+                        id="eventTime"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="eventVenue">Venue</label>
+                    <input
+                        type="text"
+                        id="eventVenue"
+                        placeholder="Example: School Sports Ground"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="eventAudience">Audience</label>
+
+                    <select id="eventAudience" required>
+                        <option value="Everyone">Everyone</option>
+                        <option value="Pupils">Pupils</option>
+                        <option value="Parents">Parents</option>
+                        <option value="Teachers">Teachers</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eventType">Event Type</label>
+
+                    <select id="eventType" required>
+                        <option value="Academic">Academic</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Celebration">Celebration</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label for="eventDescription">Description</label>
+
+                    <textarea
+                        id="eventDescription"
+                        placeholder="Write a short description about this event..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-actions">
+
+                    <button type="submit" class="primary-btn" id="submitEventBtn">
+                        <i class="fa-solid fa-plus"></i>
+                        Add Event
+                    </button>
+
+                    <button type="button" class="secondary-btn" id="cancelEditBtn" style="display:none;">
+                        Cancel Edit
+                    </button>
+
+                    <button type="button" class="secondary-btn" id="clearFormBtn">
+                        Clear
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- SEARCH AND FILTER -->
+
+        <section class="toolbar">
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="searchEvents"
+                    placeholder="Search events..."
+                >
+            </div>
+
+            <select id="typeFilter" class="filter-select">
+                <option value="All">All Event Types</option>
+                <option value="Academic">Academic</option>
+                <option value="Sports">Sports</option>
+                <option value="Meeting">Meeting</option>
+                <option value="Celebration">Celebration</option>
+                <option value="Other">Other</option>
+            </select>
+
+        </section>
+
+
+        <!-- EVENTS -->
+
+        <section class="events-grid" id="eventsGrid"></section>
+
+    </main>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const currentUserData = localStorage.getItem("schoolCurrentUser");
+
+            if (!currentUserData) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            let currentUser;
+
+            try {
+                currentUser = JSON.parse(currentUserData);
+            } catch (error) {
+                localStorage.removeItem("schoolCurrentUser");
+                window.location.href = "login.html";
+                return;
+            }
+
+            if (!currentUser || !currentUser.role) {
+                localStorage.removeItem("schoolCurrentUser");
+                window.location.href = "login.html";
+                return;
+            }
+
+
+            const role = currentUser.role;
+
+            const roleBadge = document.getElementById("roleBadge");
+            const adminPanel = document.getElementById("adminPanel");
+            const eventForm = document.getElementById("eventForm");
+            const eventsGrid = document.getElementById("eventsGrid");
+            const searchEvents = document.getElementById("searchEvents");
+            const typeFilter = document.getElementById("typeFilter");
+
+            const eventId = document.getElementById("eventId");
+            const eventTitle = document.getElementById("eventTitle");
+            const eventDate = document.getElementById("eventDate");
+            const eventTime = document.getElementById("eventTime");
+            const eventVenue = document.getElementById("eventVenue");
+            const eventAudience = document.getElementById("eventAudience");
+            const eventType = document.getElementById("eventType");
+            const eventDescription = document.getElementById("eventDescription");
+
+            const formHeading = document.getElementById("formHeading");
+            const submitEventBtn = document.getElementById("submitEventBtn");
+            const cancelEditBtn = document.getElementById("cancelEditBtn");
+            const clearFormBtn = document.getElementById("clearFormBtn");
+
+
+            roleBadge.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+
+
+            if (role.toLowerCase() === "admin") {
+                adminPanel.classList.add("show");
+            }
+
+
+            function getEvents() {
+
+                try {
+                    const events = JSON.parse(
+                        localStorage.getItem("schoolEvents") || "[]"
+                    );
+
+                    return Array.isArray(events) ? events : [];
+
+                } catch (error) {
+                    return [];
+                }
+            }
+
+
+            function saveEvents(events) {
+                localStorage.setItem(
+                    "schoolEvents",
+                    JSON.stringify(events)
+                );
+            }
+
+
+            function escapeHTML(value) {
+
+                return String(value || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+
+            function formatDate(dateValue) {
+
+                if (!dateValue) {
+                    return "Date not available";
+                }
+
+                const date = new Date(dateValue + "T00:00:00");
+
+                if (Number.isNaN(date.getTime())) {
+                    return dateValue;
+                }
+
+                return date.toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
+            }
+
+
+            function formatTime(timeValue) {
+
+                if (!timeValue) {
+                    return "Time not available";
+                }
+
+                const parts = timeValue.split(":");
+
+                if (parts.length < 2) {
+                    return timeValue;
+                }
+
+                let hour = Number(parts[0]);
+                const minute = parts[1];
+
+                const period = hour >= 12 ? "PM" : "AM";
+
+                hour = hour % 12;
+
+                if (hour === 0) {
+                    hour = 12;
+                }
+
+                return `${hour}:${minute} ${period}`;
+            }
+
+
+            function showNotification(message) {
+
+                const oldNotification =
+                    document.querySelector(".notification");
+
+                if (oldNotification) {
+                    oldNotification.remove();
+                }
+
+                const notification =
+                    document.createElement("div");
+
+                notification.className = "notification";
+                notification.textContent = message;
+
+                document.body.appendChild(notification);
+
+                setTimeout(function () {
+                    notification.remove();
+                }, 3000);
+            }
+
+
+            function resetForm() {
+
+                eventForm.reset();
+
+                eventId.value = "";
+
+                formHeading.textContent = "Add New Event";
+
+                submitEventBtn.innerHTML =
+                    '<i class="fa-solid fa-plus"></i> Add Event';
+
+                cancelEditBtn.style.display = "none";
+            }
+
+
+            function renderEvents() {
+
+                const events = getEvents();
+
+                const searchTerm =
+                    searchEvents.value.trim().toLowerCase();
+
+                const selectedType =
+                    typeFilter.value;
+
+                const filteredEvents = events
+                    .filter(function (event) {
+
+                        const matchesSearch =
+                            event.title.toLowerCase().includes(searchTerm) ||
+                            event.description.toLowerCase().includes(searchTerm) ||
+                            event.venue.toLowerCase().includes(searchTerm);
+
+                        const matchesType =
+                            selectedType === "All" ||
+                            event.type === selectedType;
+
+                        return matchesSearch && matchesType;
+                    })
+                    .sort(function (a, b) {
+
+                        const first =
+                            new Date(
+                                `${a.date}T${a.time || "00:00"}`
+                            );
+
+                        const second =
+                            new Date(
+                                `${b.date}T${b.time || "00:00"}`
+                            );
+
+                        return first - second;
+                    });
+
+
+                if (filteredEvents.length === 0) {
+
+                    eventsGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fa-regular fa-calendar-xmark"></i>
+                            <h3>No events found</h3>
+                            <p>
+                                There are no events matching your search or filter.
+                            </p>
+                        </div>
+                    `;
+
+                    return;
+                }
+
+
+                eventsGrid.innerHTML = filteredEvents.map(function (event) {
+
+                    const adminActions =
+                        role.toLowerCase() === "admin"
+                            ? `
+                                <div class="event-actions">
+
+                                    <button
+                                        class="edit-btn"
+                                        onclick="editEvent('${event.id}')"
+                                    >
+                                        <i class="fa-solid fa-pen"></i>
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        class="delete-btn"
+                                        onclick="deleteEvent('${event.id}')"
+                                    >
+                                        <i class="fa-solid fa-trash"></i>
+                                        Delete
+                                    </button>
+
+                                </div>
+                            `
+                            : "";
+
+
+                    return `
+                        <article class="event-card">
+
+                            <div class="event-top">
+
+                                <div class="event-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    ${escapeHTML(formatDate(event.date))}
+                                </div>
+
+                                <h3>
+                                    ${escapeHTML(event.title)}
+                                </h3>
+
+                            </div>
+
+                            <div class="event-body">
+
+                                <div class="event-info">
+                                    <i class="fa-regular fa-clock"></i>
+                                    <span>
+                                        ${escapeHTML(formatTime(event.time))}
+                                    </span>
+                                </div>
+
+                                <div class="event-info">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>
+                                        ${escapeHTML(event.venue)}
+                                    </span>
+                                </div>
+
+                                <div class="event-info">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    <span>
+                                        ${escapeHTML(event.type)}
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <span class="audience-badge">
+                                        <i class="fa-solid fa-users"></i>
+                                        ${escapeHTML(event.audience)}
+                                    </span>
+                                </div>
+
+                                <p class="event-description">
+                                    ${escapeHTML(event.description)}
+                                </p>
+
+                                ${adminActions}
+
+                            </div>
+
+                        </article>
+                    `;
+
+                }).join("");
+            }
+
+
+            eventForm.addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                if (role.toLowerCase() !== "admin") {
+                    showNotification("Only administrators can manage events.");
+                    return;
+                }
+
+
+                const title =
+                    eventTitle.value.trim();
+
+                const date =
+                    eventDate.value;
+
+                const time =
+                    eventTime.value;
+
+                const venue =
+                    eventVenue.value.trim();
+
+                const audience =
+                    eventAudience.value;
+
+                const type =
+                    eventType.value;
+
+                const description =
+                    eventDescription.value.trim();
+
+
+                if (
+                    !title ||
+                    !date ||
+                    !time ||
+                    !venue ||
+                    !audience ||
+                    !type ||
+                    !description
+                ) {
+                    showNotification("Please complete all event fields.");
+                    return;
+                }
+
+
+                const events = getEvents();
+
+                const editingId =
+                    eventId.value;
+
+
+                if (editingId) {
+
+                    const eventIndex =
+                        events.findIndex(function (event) {
+                            return event.id === editingId;
+                        });
+
+
+                    if (eventIndex !== -1) {
+
+                        events[eventIndex] = {
+                            ...events[eventIndex],
+                            title: title,
+                            date: date,
+                            time: time,
+                            venue: venue,
+                            audience: audience,
+                            type: type,
+                            description: description,
+                            updatedAt: new Date().toISOString()
+                        };
+
+                        saveEvents(events);
+
+                        showNotification("Event updated successfully.");
+                    }
+
+                } else {
+
+                    const newEvent = {
+
+                        id: Date.now().toString(),
+
+                        title: title,
+
+                        date: date,
+
+                        time: time,
+
+                        venue: venue,
+
+                        audience: audience,
+
+                        type: type,
+
+                        description: description,
+
+                        postedBy: currentUser.id,
+
+                        createdAt: new Date().toISOString()
+
+                    };
+
+
+                    events.push(newEvent);
+
+                    saveEvents(events);
+
+                    showNotification("Event added successfully.");
+                }
+
+
+                resetForm();
+
+                renderEvents();
+
+            });
+
+
+            window.editEvent = function (id) {
+
+                if (role.toLowerCase() !== "admin") {
+                    return;
+                }
+
+                const events = getEvents();
+
+                const event =
+                    events.find(function (item) {
+                        return item.id === id;
+                    });
+
+
+                if (!event) {
+                    return;
+                }
+
+
+                eventId.value = event.id;
+
+                eventTitle.value = event.title;
+
+                eventDate.value = event.date;
+
+                eventTime.value = event.time;
+
+                eventVenue.value = event.venue;
+
+                eventAudience.value = event.audience;
+
+                eventType.value = event.type;
+
+                eventDescription.value = event.description;
+
+
+                formHeading.textContent = "Edit Event";
+
+                submitEventBtn.innerHTML =
+                    '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
+
+                cancelEditBtn.style.display = "inline-block";
+
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            };
+
+
+            window.deleteEvent = function (id) {
+
+                if (role.toLowerCase() !== "admin") {
+                    return;
+                }
+
+
+                const events = getEvents();
+
+                const event =
+                    events.find(function (item) {
+                        return item.id === id;
+                    });
+
+
+                if (!event) {
+                    return;
+                }
+
+
+                const confirmed =
+                    confirm(
+                        `Delete "${event.title}" from school events?`
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                const updatedEvents =
+                    events.filter(function (item) {
+                        return item.id !== id;
+                    });
+
+
+                saveEvents(updatedEvents);
+
+                renderEvents();
+
+                showNotification("Event deleted successfully.");
+            };
+
+
+            cancelEditBtn.addEventListener(
+                "click",
+                function () {
+                    resetForm();
+                }
+            );
+
+
+            clearFormBtn.addEventListener(
+                "click",
+                function () {
+                    resetForm();
+                }
+            );
+
+
+            searchEvents.addEventListener(
+                "input",
+                renderEvents
+            );
+
+
+            typeFilter.addEventListener(
+                "change",
+                renderEvents
+            );
+
+
+            document
+                .getElementById("logoutBtn")
+                .addEventListener("click", function () {
+
+                    localStorage.removeItem("schoolCurrentUser");
+
+                    window.location.href = "login.html";
+
+                });
+
+
+            renderEvents();
+
+        });
+    </script>
+
+</body>
+</html>

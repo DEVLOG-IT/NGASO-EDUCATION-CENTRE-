@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Announcements | Ngaso Education Centre</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        .page {
+            min-height: 100vh;
+        }
+
+        /* TOP NAVIGATION */
+
+        .top-nav {
+            height: 72px;
+            background: #09244a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: #d5af49;
+            color: #09244a;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .brand h1 {
+            font-size: 17px;
+        }
+
+        .brand span {
+            display: block;
+            color: #cbd7e8;
+            font-size: 10px;
+            margin-top: 3px;
+            font-weight: normal;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn,
+        .logout-btn {
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .back-btn:hover,
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.16);
+        }
+
+        /* MAIN */
+
+        .container {
+            width: min(1150px, 92%);
+            margin: auto;
+            padding: 35px 0 50px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .page-heading h2 {
+            color: #09244a;
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .page-heading p {
+            color: #788395;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .user-role {
+            background: #eaf0f8;
+            color: #0d3b78;
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        /* ADMIN FORM */
+
+        .admin-section {
+            background: white;
+            border: 1px solid #e4e9f0;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid #edf0f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-header h3 {
+            color: #09244a;
+            font-size: 15px;
+        }
+
+        .section-header p {
+            color: #7c8695;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .admin-badge {
+            background: #edf3fb;
+            color: #0d3b78;
+            padding: 7px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .form-container {
+            padding: 22px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 2px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            color: #364153;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            border: 1px solid #dce2ea;
+            border-radius: 7px;
+            padding: 11px 12px;
+            outline: none;
+            font-size: 13px;
+            color: #172033;
+            background: #fff;
+        }
+
+        .form-group textarea {
+            min-height: 115px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #0d3b78;
+            box-shadow: 0 0 0 3px rgba(13,59,120,0.08);
+        }
+
+        .form-actions {
+            margin-top: 17px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .clear-btn,
+        .publish-btn {
+            border: none;
+            border-radius: 7px;
+            padding: 11px 17px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .clear-btn {
+            background: #eef1f5;
+            color: #465266;
+        }
+
+        .publish-btn {
+            background: #0d3b78;
+            color: white;
+        }
+
+        .publish-btn:hover {
+            background: #092e60;
+        }
+
+        .clear-btn:hover {
+            background: #e2e6ec;
+        }
+
+        /* SEARCH */
+
+        .search-section {
+            background: white;
+            border: 1px solid #e4e9f0;
+            border-radius: 12px;
+            padding: 17px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8b95a4;
+            font-size: 13px;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: 1px solid #dce2ea;
+            border-radius: 7px;
+            padding: 11px 12px 11px 37px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            border-color: #0d3b78;
+        }
+
+        .filter-select {
+            border: 1px solid #dce2ea;
+            border-radius: 7px;
+            padding: 10px 12px;
+            color: #465266;
+            outline: none;
+            font-size: 12px;
+            background: white;
+        }
+
+        /* ANNOUNCEMENTS */
+
+        .announcements-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .announcement-card {
+            background: white;
+            border: 1px solid #e4e9f0;
+            border-radius: 11px;
+            padding: 21px;
+            position: relative;
+        }
+
+        .announcement-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .announcement-title {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .announcement-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background: #edf3fb;
+            color: #0d3b78;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .announcement-title h3 {
+            color: #172033;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .announcement-meta {
+            color: #8993a1;
+            font-size: 10px;
+        }
+
+        .priority {
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .priority-normal {
+            background: #edf3fb;
+            color: #0d3b78;
+        }
+
+        .priority-important {
+            background: #fff4d8;
+            color: #8a6712;
+        }
+
+        .priority-urgent {
+            background: #fdeaea;
+            color: #b52d2d;
+        }
+
+        .announcement-content {
+            margin: 17px 0 15px 52px;
+            color: #596577;
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        .announcement-footer {
+            margin-left: 52px;
+            padding-top: 13px;
+            border-top: 1px solid #edf0f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .posted-by {
+            color: #8993a1;
+            font-size: 10px;
+        }
+
+        .delete-btn {
+            border: none;
+            background: #fff0f0;
+            color: #b52d2d;
+            padding: 7px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 10px;
+            display: none;
+        }
+
+        .delete-btn:hover {
+            background: #ffe0e0;
+        }
+
+        .admin-mode .delete-btn {
+            display: inline-block;
+        }
+
+        .empty-state {
+            background: white;
+            border: 1px solid #e4e9f0;
+            border-radius: 11px;
+            text-align: center;
+            padding: 55px 20px;
+            color: #8993a1;
+        }
+
+        .empty-state i {
+            font-size: 34px;
+            margin-bottom: 13px;
+            color: #b4bdc9;
+        }
+
+        .empty-state h3 {
+            color: #596577;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .empty-state p {
+            font-size: 12px;
+        }
+
+        /* NOTIFICATION */
+
+        .notification {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            background: #09244a;
+            color: white;
+            padding: 13px 17px;
+            border-radius: 8px;
+            font-size: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 5000;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            .top-nav {
+                padding: 0 4%;
+            }
+
+            .brand h1 {
+                font-size: 14px;
+            }
+
+            .brand span {
+                font-size: 9px;
+            }
+
+            .back-btn {
+                display: none;
+            }
+
+            .container {
+                width: 94%;
+                padding-top: 25px;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .page-heading h2 {
+                font-size: 23px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .search-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .announcement-top {
+                flex-direction: column;
+            }
+
+            .announcement-content,
+            .announcement-footer {
+                margin-left: 0;
+            }
+
+            .announcement-content {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .logout-btn {
+                padding: 9px 10px;
+                font-size: 11px;
+            }
+
+            .announcement-title {
+                gap: 9px;
+            }
+
+            .announcement-title h3 {
+                font-size: 14px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .clear-btn,
+            .publish-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- TOP NAVIGATION -->
+
+        <header class="top-nav">
+
+            <a href="portal.html" class="brand">
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+
+                <div>
+                    <h1>Ngaso Education Centre</h1>
+                    <span>School Management Portal</span>
+                </div>
+
+            </a>
+
+
+            <div class="top-actions">
+
+                <a href="portal.html" class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Dashboard
+                </a>
+
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <main class="container">
+
+            <!-- PAGE HEADING -->
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>School Announcements</h2>
+
+                    <p>
+                        Stay updated with important news, notices and information
+                        from Ngaso Education Centre.
+                    </p>
+
+                </div>
+
+                <div class="user-role" id="userRole">
+                    School User
+                </div>
+
+            </div>
+
+
+            <!-- ADMIN PUBLISH AREA -->
+
+            <section class="admin-section" id="adminSection">
+
+                <div class="section-header">
+
+                    <div>
+                        <h3>
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Publish Announcement
+                        </h3>
+
+                        <p>
+                            Create an announcement for the school community.
+                        </p>
+                    </div>
+
+                    <span class="admin-badge">
+                        ADMIN
+                    </span>
+
+                </div>
+
+
+                <form id="announcementForm" class="form-container">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="announcementTitle">
+                                Announcement Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="announcementTitle"
+                                placeholder="Enter announcement title"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="announcementDate">
+                                Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="announcementDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="announcementPriority">
+                                Priority
+                            </label>
+
+                            <select id="announcementPriority">
+
+                                <option value="normal">
+                                    Normal
+                                </option>
+
+                                <option value="important">
+                                    Important
+                                </option>
+
+                                <option value="urgent">
+                                    Urgent
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="announcementAudience">
+                                Audience
+                            </label>
+
+                            <select id="announcementAudience">
+
+                                <option value="Everyone">
+                                    Everyone
+                                </option>
+
+                                <option value="Pupils">
+                                    Pupils
+                                </option>
+
+                                <option value="Parents">
+                                    Parents
+                                </option>
+
+                                <option value="Teachers">
+                                    Teachers
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="announcementContent">
+                                Announcement Message
+                            </label>
+
+                            <textarea
+                                id="announcementContent"
+                                placeholder="Write the announcement here..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="button"
+                            class="clear-btn"
+                            id="clearBtn"
+                        >
+                            Clear
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="publish-btn"
+                        >
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Publish Announcement
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- SEARCH -->
+
+            <section class="search-section">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search announcements..."
+                    >
+
+                </div>
+
+
+                <select class="filter-select" id="priorityFilter">
+
+                    <option value="all">
+                        All Priorities
+                    </option>
+
+                    <option value="normal">
+                        Normal
+                    </option>
+
+                    <option value="important">
+                        Important
+                    </option>
+
+                    <option value="urgent">
+                        Urgent
+                    </option>
+
+                </select>
+
+            </section>
+
+
+            <!-- ANNOUNCEMENTS LIST -->
+
+            <section id="announcementsList" class="announcements-list">
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <div class="notification" id="notification"></div>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            /*
+                Check logged-in user
+            */
+
+            const currentUserData =
+                localStorage.getItem("schoolCurrentUser");
+
+            if (!currentUserData) {
+                window.location.href = "login.html";
+                return;
+            }
+
+
+            let currentUser;
+
+            try {
+
+                currentUser =
+                    JSON.parse(currentUserData);
+
+            } catch (error) {
+
+                localStorage.removeItem("schoolCurrentUser");
+
+                window.location.href = "login.html";
+
+                return;
+
+            }
+
+
+            const userRole =
+                currentUser.role || "user";
+
+            const userId =
+                currentUser.id || "School User";
+
+
+            /*
+                Elements
+            */
+
+            const adminSection =
+                document.getElementById("adminSection");
+
+            const form =
+                document.getElementById("announcementForm");
+
+            const list =
+                document.getElementById("announcementsList");
+
+            const searchInput =
+                document.getElementById("searchInput");
+
+            const priorityFilter =
+                document.getElementById("priorityFilter");
+
+            const clearBtn =
+                document.getElementById("clearBtn");
+
+            const logoutBtn =
+                document.getElementById("logoutBtn");
+
+            const userRoleElement =
+                document.getElementById("userRole");
+
+            const notification =
+                document.getElementById("notification");
+
+
+            /*
+                Show current role
+            */
+
+            userRoleElement.textContent =
+                userRole;
+
+
+            /*
+                Only admin can publish
+            */
+
+            if (userRole !== "admin") {
+
+                adminSection.style.display = "none";
+
+                document.body.classList.remove("admin-mode");
+
+            } else {
+
+                document.body.classList.add("admin-mode");
+
+            }
+
+
+            /*
+                Local storage
+            */
+
+            const storageKey =
+                "schoolAnnouncements";
+
+
+            function getAnnouncements() {
+
+                try {
+
+                    const data =
+                        JSON.parse(
+                            localStorage.getItem(storageKey) || "[]"
+                        );
+
+                    return Array.isArray(data)
+                        ? data
+                        : [];
+
+                } catch (error) {
+
+                    return [];
+
+                }
+
+            }
+
+
+            function saveAnnouncements(announcements) {
+
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify(announcements)
+                );
+
+            }
+
+
+            /*
+                Escape HTML
+            */
+
+            function escapeHTML(value) {
+
+                const div =
+                    document.createElement("div");
+
+                div.textContent =
+                    value || "";
+
+                return div.innerHTML;
+
+            }
+
+
+            /*
+                Date formatting
+            */
+
+            function formatDate(dateValue) {
+
+                if (!dateValue) {
+                    return "";
+                }
+
+                const date =
+                    new Date(dateValue);
+
+                if (isNaN(date.getTime())) {
+                    return dateValue;
+                }
+
+                return date.toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+
+            }
+
+
+            /*
+                Priority label
+            */
+
+            function priorityLabel(priority) {
+
+                if (priority === "important") {
+                    return "Important";
+                }
+
+                if (priority === "urgent") {
+                    return "Urgent";
+                }
+
+                return "Normal";
+
+            }
+
+
+            /*
+                Show notification
+            */
+
+            function showNotification(message) {
+
+                notification.textContent =
+                    message;
+
+                notification.classList.add("show");
+
+                setTimeout(function () {
+
+                    notification.classList.remove("show");
+
+                }, 2500);
+
+            }
+
+
+            /*
+                Render announcements
+            */
+
+            function renderAnnouncements() {
+
+                const announcements =
+                    getAnnouncements();
+
+                const search =
+                    searchInput.value
+                        .trim()
+                        .toLowerCase();
+
+                const priority =
+                    priorityFilter.value;
+
+
+                const filtered =
+                    announcements.filter(function (announcement) {
+
+                        const title =
+                            announcement.title || "";
+
+                        const content =
+                            announcement.content || "";
+
+                        const audience =
+                            announcement.audience || "";
+
+                        const matchesSearch =
+                            title.toLowerCase().includes(search) ||
+                            content.toLowerCase().includes(search) ||
+                            audience.toLowerCase().includes(search);
+
+                        const matchesPriority =
+                            priority === "all" ||
+                            announcement.priority === priority;
+
+                        return (
+                            matchesSearch &&
+                            matchesPriority
+                        );
+
+                    });
+
+
+                if (filtered.length === 0) {
+
+                    list.innerHTML = `
+                        <div class="empty-state">
+
+                            <i class="fa-regular fa-bell"></i>
+
+                            <h3>
+                                No announcements found
+                            </h3>
+
+                            <p>
+                                There are currently no announcements matching your search.
+                            </p>
+
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                list.innerHTML =
+                    filtered
+                        .slice()
+                        .reverse()
+                        .map(function (announcement) {
+
+                            const priorityClass =
+                                "priority-" +
+                                (announcement.priority || "normal");
+
+
+                            return `
+                                <article class="announcement-card">
+
+                                    <div class="announcement-top">
+
+                                        <div class="announcement-title">
+
+                                            <div class="announcement-icon">
+                                                <i class="fa-solid fa-bullhorn"></i>
+                                            </div>
+
+                                            <div>
+
+                                                <h3>
+                                                    ${escapeHTML(
+                                                        announcement.title
+                                                    )}
+                                                </h3>
+
+                                                <div class="announcement-meta">
+
+                                                    <i class="fa-regular fa-calendar"></i>
+
+                                                    ${escapeHTML(
+                                                        formatDate(
+                                                            announcement.date
+                                                        )
+                                                    )}
+
+                                                    &nbsp; • &nbsp;
+
+                                                    <i class="fa-solid fa-users"></i>
+
+                                                    ${escapeHTML(
+                                                        announcement.audience ||
+                                                        "Everyone"
+                                                    )}
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <span class="priority ${priorityClass}">
+                                            ${escapeHTML(
+                                                priorityLabel(
+                                                    announcement.priority
+                                                )
+                                            )}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="announcement-content">
+                                        ${escapeHTML(
+                                            announcement.content
+                                        )}
+                                    </div>
+
+
+                                    <div class="announcement-footer">
+
+                                        <span class="posted-by">
+
+                                            <i class="fa-solid fa-user"></i>
+
+                                            Posted by
+                                            ${escapeHTML(
+                                                announcement.postedBy ||
+                                                "School Administration"
+                                            )}
+
+                                        </span>
+
+
+                                        <button
+                                            class="delete-btn"
+                                            data-id="${escapeHTML(
+                                                announcement.id
+                                            )}"
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </article>
+                            `;
+
+                        })
+                        .join("");
+
+
+                /*
+                    Delete buttons
+                */
+
+                document
+                    .querySelectorAll(".delete-btn")
+                    .forEach(function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                const id =
+                                    this.dataset.id;
+
+                                deleteAnnouncement(id);
+
+                            }
+                        );
+
+                    });
+
+            }
+
+
+            /*
+                Publish announcement
+            */
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    if (userRole !== "admin") {
+
+                        showNotification(
+                            "Only administrators can publish announcements."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const title =
+                        document
+                            .getElementById(
+                                "announcementTitle"
+                            )
+                            .value
+                            .trim();
+
+
+                    const date =
+                        document
+                            .getElementById(
+                                "announcementDate"
+                            )
+                            .value;
+
+
+                    const priority =
+                        document
+                            .getElementById(
+                                "announcementPriority"
+                            )
+                            .value;
+
+
+                    const audience =
+                        document
+                            .getElementById(
+                                "announcementAudience"
+                            )
+                            .value;
+
+
+                    const content =
+                        document
+                            .getElementById(
+                                "announcementContent"
+                            )
+                            .value
+                            .trim();
+
+
+                    if (
+                        !title ||
+                        !date ||
+                        !content
+                    ) {
+
+                        showNotification(
+                            "Please complete all required fields."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const announcements =
+                        getAnnouncements();
+
+
+                    const newAnnouncement = {
+
+                        id:
+                            Date.now().toString(),
+
+                        title:
+                            title,
+
+                        date:
+                            date,
+
+                        priority:
+                            priority,
+
+                        audience:
+                            audience,
+
+                        content:
+                            content,
+
+                        postedBy:
+                            userId,
+
+                        createdAt:
+                            new Date().toISOString()
+
+                    };
+
+
+                    announcements.push(
+                        newAnnouncement
+                    );
+
+
+                    saveAnnouncements(
+                        announcements
+                    );
+
+
+                    form.reset();
+
+
+                    document
+                        .getElementById(
+                            "announcementDate"
+                        )
+                        .value =
+                        new Date()
+                            .toISOString()
+                            .split("T")[0];
+
+
+                    renderAnnouncements();
+
+
+                    showNotification(
+                        "Announcement published successfully."
+                    );
+
+                }
+            );
+
+
+            /*
+                Delete announcement
+            */
+
+            function deleteAnnouncement(id) {
+
+                if (userRole !== "admin") {
+                    return;
+                }
+
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to delete this announcement?"
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                const announcements =
+                    getAnnouncements()
+                        .filter(function (announcement) {
+
+                            return announcement.id !== id;
+
+                        });
+
+
+                saveAnnouncements(
+                    announcements
+                );
+
+
+                renderAnnouncements();
+
+
+                showNotification(
+                    "Announcement deleted."
+                );
+
+            }
+
+
+            /*
+                Clear form
+            */
+
+            clearBtn.addEventListener(
+                "click",
+                function () {
+
+                    form.reset();
+
+                    document
+                        .getElementById(
+                            "announcementDate"
+                        )
+                        .value =
+                        new Date()
+                            .toISOString()
+                            .split("T")[0];
+
+                }
+            );
+
+
+            /*
+                Search and filter
+            */
+
+            searchInput.addEventListener(
+                "input",
+                renderAnnouncements
+            );
+
+            priorityFilter.addEventListener(
+                "change",
+                renderAnnouncements
+            );
+
+
+            /*
+                Logout
+            */
+
+            logoutBtn.addEventListener(
+                "click",
+                function () {
+
+                    localStorage.removeItem(
+                        "schoolCurrentUser"
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                }
+            );
+
+
+            /*
+                Set today's date
+            */
+
+            const dateInput =
+                document.getElementById(
+                    "announcementDate"
+                );
+
+            dateInput.value =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+
+            /*
+                Display announcements
+            */
+
+            renderAnnouncements();
+
+        });
+
+    </script>
+
+</body>
+</html>
